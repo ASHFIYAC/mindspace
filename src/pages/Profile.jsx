@@ -14,7 +14,7 @@ function Profile() {
   });
 
   useEffect(() => {
-    fetch("http://localhost:5000/journal")
+    fetch("https://mindspace-jw73.onrender.com/journal")
       .then((response) => response.json())
       .then((data) => setTotalEntries(data.length))
       .catch((error) => console.log(error));

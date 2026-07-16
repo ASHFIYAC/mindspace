@@ -41,7 +41,7 @@ const toggleTask = (id) => {
 };
 useEffect(() => {
 
-  fetch("http://localhost:5000/journal")
+  fetch("https://mindspace-jw73.onrender.com/journal")
     .then((response) => response.json())
     .then((data) => {
       setJournals(data);

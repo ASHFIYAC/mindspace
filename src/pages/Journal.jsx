@@ -19,7 +19,7 @@ function Journal() {
   const handleSave=async()=>{
     try{
       const response=await
-      fetch("http://localhost:5000/journal",{
+      fetch("https://mindspace-jw73.onrender.com/journal",{
         method:"POST",
         headers: {
         "Content-Type": "application/json",

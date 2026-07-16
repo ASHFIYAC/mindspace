@@ -24,7 +24,7 @@ function Entries() {
 
     try {
 
-      const response = await fetch("http://localhost:5000/journal");
+      const response = await fetch("https://mindspace-jw73.onrender.com/journal");
 
       const data = await response.json();
 
@@ -78,7 +78,7 @@ const getMoodColor = (mood) => {
 
   try {
 
-    await fetch(`http://localhost:5000/journal/${editingId}`, {
+    await fetch(`https://mindspace-jw73.onrender.com/journal/${editingId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -105,7 +105,7 @@ const getMoodColor = (mood) => {
 
 const confirmDelete = async () => {
   try {
-    await fetch(`http://localhost:5000/journal/${deleteId}`, {
+    await fetch(`https://mindspace-jw73.onrender.com/journal/${deleteId}`, {
       method: "DELETE",
     });
 
