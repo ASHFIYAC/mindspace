@@ -41,19 +41,20 @@ function Login() {
         password,
       }),
     });
+const data = await response.json();
 
-    const data = await response.json();
-
-    console.log(data);
-    localStorage.setItem("username",data.username);
-    navigate("/dashboard");
-
-  } catch (error) {
-
-    console.log(error);
-
-  }
-}; 
+if (response.ok) {
+  console.log(data);
+  localStorage.setItem("username", data.username);
+  navigate("/dashboard");
+} else {
+  setError(data.message || "Login failed");
+}} catch (error) {
+  console.log(error);
+  setError("Something went wrong. Please try again.");
+}
+  
+  };
   return (
     <div className="min-h-screen bg-[#B7C9A8] flex items-center justify-center px-4">
 
