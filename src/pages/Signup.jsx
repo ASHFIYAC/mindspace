@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
 import { useState } from "react";
 
 function Signup() {
   const [username, setUsername] = useState("");
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
+const Navigate=useNavigate();
 
 const handleSignup = async (e) => {
   e.preventDefault();
@@ -24,10 +25,14 @@ const handleSignup = async (e) => {
         password,
       }),
     });
+   const data = await response.json();
 
-    const data = await response.json();
-
-    console.log(data);
+if (response.ok) {
+  console.log(data);
+  navigate("/");
+} else {
+  alert(data.message);
+}
 
   } catch (error) {
 
