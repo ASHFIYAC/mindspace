@@ -139,7 +139,7 @@ app.post("/login", async (req, res) => {
 
 });
 
-app.post("/journal",async(req,res)=>{
+app.post("/journal",authenticateToken,async(req,res)=>{
     try{
         const{title,entry,mood}=req.body;
 
@@ -163,7 +163,7 @@ app.post("/journal",async(req,res)=>{
         });
     }
 });
-    app.get("/journal", async (req, res) => {
+    app.get("/journal",authenticateToken, async (req, res) => {
 
   try {
 
@@ -184,7 +184,7 @@ app.post("/journal",async(req,res)=>{
   }
 
 });
-app.put("/journal/:id", async (req, res) => {
+app.put("/journal/:id",authenticateToken, async (req, res) => {
 
   try {
 

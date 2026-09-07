@@ -41,7 +41,12 @@ const toggleTask = (id) => {
 };
 useEffect(() => {
 
-  fetch("https://mindspace-jw73.onrender.com/journal")
+  fetch("https://mindspace-jw73.onrender.com/journal"
+    , {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+})
     .then((response) => response.json())
     .then((data) => {
       setJournals(data);
