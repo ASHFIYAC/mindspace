@@ -24,7 +24,11 @@ function Entries() {
 
     try {
 
-      const response = await fetch("https://mindspace-jw73.onrender.com/journal");
+      const response = await fetch("https://mindspace-jw73.onrender.com/journal",{
+     headers: {
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+     }, 
+    });
 
       const data = await response.json();
 
@@ -82,6 +86,7 @@ const getMoodColor = (mood) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       body: JSON.stringify({
         entry: editedEntry,
@@ -107,7 +112,10 @@ const confirmDelete = async () => {
   try {
     await fetch(`https://mindspace-jw73.onrender.com/journal/${deleteId}`, {
       method: "DELETE",
-    });
+      headers: {
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+    }
+  });
 
     fetchEntries();
     setShowDeleteModal(false);

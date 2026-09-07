@@ -24,6 +24,31 @@ app.get("/", (req, res) => {
 
 const PORT = 5000;
 
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+
+  const token = authHeader && authHeader.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({
+      message: "Access denied. No token provided.",
+    });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    req.user = decoded;
+
+    next();
+  } catch (error) {
+    return res.status(403).json({
+      message: "Invalid or expired token.",
+    });
+  }
+};
+
+
 app.post("/signup", async (req, res) => {
   try {
 
@@ -119,6 +144,7 @@ app.post("/journal",async(req,res)=>{
         const{title,entry,mood}=req.body;
 
         const newJournal=new Journal({
+            userId:req.user.id,
             title,
             entry,
             mood,
@@ -141,7 +167,9 @@ app.post("/journal",async(req,res)=>{
 
   try {
 
-    const journals = await Journal.find();
+    const journals = await Journal.find({
+      userId:req.user.id
+    } );
 
     res.status(200).json(journals);
 
@@ -186,11 +214,14 @@ app.put("/journal/:id", async (req, res) => {
   }
 
 });
-app.delete("/journal/:id", async (req, res) => {
+app.delete("/journal/:id", authenticateToken,async (req, res) => {
 
   try {
 
-    await Journal.findByIdAndDelete(req.params.id);
+    await Journal.findOneAndDelete({
+    _id:req.params.id,
+     userId:req.user.id,
+     });
 
     res.status(200).json({
       message: "Journal deleted successfully",
